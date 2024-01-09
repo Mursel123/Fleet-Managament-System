@@ -1,0 +1,44 @@
+
+<div style="height: 100%" class="min-h-screen flex flex-row">
+  <div class="flex flex-col w-56 bg-secondary  overflow-hidden">
+    <ul class="flex flex-col py-4">
+      <li>
+        <a routerLink="/" class=" transition-colors duration-300 ease-in-out flex flex-row items-center h-12  text-white hover:bg-white">
+          <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-white "><i class="bx bx-home"></i></span>
+          <span class="text-base font-medium">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/chauffeur-detail" class=" transition-colors duration-300 ease-in-out flex flex-row items-center h-12  text-white hover:bg-white">
+          <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-white "><i class="bx bx-id-card"></i></span>
+          <span class="text-base font-medium">Profiel</span>
+        </a>
+      </li>
+      <li *ngIf="isAdmin">
+        <a routerLink="/chauffeurs" class=" transition-colors duration-300 ease-in-out flex flex-row items-center h-12  text-white hover:bg-white">
+          <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-white "><i class="bx bx-group"></i></span>
+          <span class="text-base font-medium">Chauffeurs</span>
+        </a>
+      </li>
+      <li *ngIf="isAdmin">
+        <a routerLink="/voertuigen" class=" transition-colors duration-300 ease-in-out flex flex-row items-center h-12  text-white hover:bg-white">
+          <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-white "><i class="bx bx-car"></i></span>
+          <span class="text-base font-medium">Voertuigen</span>
+        </a>
+      </li>
+      <li *ngIf="isAdmin">
+        <a routerLink="/aanvragen-admin" class=" transition-colors duration-300 ease-in-out flex flex-row items-center h-12  text-white hover:bg-white">
+          <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-white"><i class="bx bx-envelope"></i></span>
+          <span class="text-base font-medium">Aanvragen</span>
+          <span *ngIf="aanvragenCount != 0" class="inline-flex items-center justify-center h-5 w-5 font-heading bg-red-400 rounded-full text-white ml-2 mt-1 text-sm">{{ aanvragenCount }}</span>
+        </a>
+      </li>
+      <li *ngIf="!isAdmin">
+        <a routerLink="/aanvragen" class=" transition-colors duration-300 ease-in-out flex flex-row items-center h-12  text-white hover:bg-white">
+          <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-white"><i class="bx bx-envelope"></i></span>
+          <span class="text-base font-medium">Aanvragen</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

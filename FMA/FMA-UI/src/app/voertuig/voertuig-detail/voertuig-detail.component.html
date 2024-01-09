@@ -1,0 +1,25 @@
+<div class="container mx-auto">
+    <div class="shadow-lg rounded-md overflow-hidden bg-gray-50 border border-gray-500">
+      <div class="bg-gray-50 text-gray-700 p-6">
+        <div class="grid gap-4">
+          <div>
+            <h2 class="text-xl font-semibold mb-2">Voertuig</h2>
+            <ul class="list-disc pl-4">
+              <li><strong>Chassisnummer:</strong> {{ voertuig.chassisnummer }}</li>
+              <li><strong>Start Leasing:</strong> {{ voertuig.startLeasing | date:'dd/MM/yyyy' }}</li>
+              <li><strong>Eerste Inschrijving:</strong> {{ voertuig.eersteInschrijving | date:'dd/MM/yyyy' }}</li>
+              <li><strong>Looptijd Leasing:</strong> {{ voertuig.looptijdLeasing | date:'dd/MM/yyyy'}}</li>
+              <li><strong>Wagen Type:</strong> {{ voertuig.wagenType | enumPipe: wagenTypeEnum }}</li>
+              <li><strong>Brandstof Type:</strong> {{ voertuig.brandstofType | enumPipe: brandstofTypeEnum }}</li>
+            </ul>
+          </div>
+          <div>
+            <a class="bg-white transition-colors duration-200 ease-in-out text-red-400 font-heading  hover:bg-red-400 hover:text-white py-2 pr-4 pl-3 border border-red-400 hover:border-transparent rounded float-right m-3" ><i class='bx bxs-trash mr-1 m-auto'></i>Verwijder</a>
+            <a class="bg-white transition-colors duration-200 ease-in-out text-primary font-heading  hover:bg-primary hover:text-white py-2 pr-4 pl-3 border border-primary hover:border-transparent rounded float-right m-3"><i class='bx bxs-pencil mr-1'></i>Aanpassen</a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+  

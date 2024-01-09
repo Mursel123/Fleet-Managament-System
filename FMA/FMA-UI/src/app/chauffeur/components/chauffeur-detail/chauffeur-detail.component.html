@@ -1,0 +1,56 @@
+<div class="container mx-auto">
+  <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-300">
+    <div class="text-gray-700 p-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <h2 class="text-2xl font-bold mb-4">Persoonlijk</h2>
+          <ul class="list-disc pl-6">
+            <li><strong>Naam:</strong> {{ chauffeur.naam }}</li>
+            <li><strong>Voornaam:</strong> {{ chauffeur.voornaam }}</li>
+            <li><strong>Email:</strong> {{ chauffeur.email }}</li>
+            <li><strong>Geboortedatum:</strong> {{ chauffeur.geboortedatum | date:'dd/MM/yyyy'}}</li>
+            <li><strong>Rijksregisternummer:</strong> {{ chauffeur.rijksregisternummer }}</li>
+
+            <li class="align-top">
+              <strong class="mr-2">Actief:</strong>
+              <i class='bx' [class.bx-check]='chauffeur.isActief' [class.bx-x]='!chauffeur.isActief' [style.color]='chauffeur.isActief ? "green" : "red"' style="line-height: 1;"></i>
+            </li>   
+                     
+            <li><strong>Rijbewijs Type:</strong> {{ chauffeur.rijbewijsType  | enumPipe: rijbewijstTypeEnum }}</li>
+          </ul>
+        </div>
+        <div *ngIf="chauffeur.adres">
+          <h2 class="text-2xl font-bold mb-4">Adres</h2>
+          <ul class="list-disc pl-6">
+            <li><strong>Straat:</strong> {{ chauffeur.adres.straat }}</li>
+            <li><strong>Nummer:</strong> {{ chauffeur.adres.nummer }}</li>
+            <li><strong>Bus:</strong> {{ chauffeur.adres.bus }}</li>
+            <li><strong>Stad:</strong> {{ chauffeur.gemeente ? chauffeur.gemeente.stad : 'Geen Stad' }}</li>
+            <li><strong>Postcode:</strong> {{ chauffeur.gemeente ? chauffeur.gemeente.postcode : 'Geen Postcode' }}</li>
+          </ul>
+        </div>
+      </div>
+      <div *ngIf="chauffeur.tankkaart">
+        <h2 class="text-2xl font-bold mt-6">Tankkaart</h2>
+        <ul class="list-disc pl-6">
+          <li><strong>Kaart Nummer:</strong> {{ chauffeur.tankkaart.kaartNummer }}</li>
+          <li><strong>Geldigheids Datum:</strong> {{ chauffeur.tankkaart.geldigheidsDatum | date:'dd/MM/yyyy'}}</li>
+        </ul>
+      </div>
+      <div *ngIf="chauffeur.gemeldeSchades && chauffeur.gemeldeSchades.length > 0">
+        <h2 class="text-2xl font-bold mt-6">Gemelde Schades</h2>
+        <ul class="list-disc pl-6">
+          <li *ngFor="let schade of chauffeur.gemeldeSchades">{{ schade.schade }}</li>
+        </ul>
+      </div>
+      <div *ngIf="isAdmin">
+        <a *ngIf="!chauffeur.isActief" class="bg-white transition-colors duration-200 ease-in-out text-green-400 font-heading  hover:bg-green-400 hover:text-white py-2 pr-4 pl-3 border border-green-400 hover:border-transparent rounded float-right m-3 cursor-pointer" (click)="activeChauffeur(true ,chauffeur.id)"><i class='bx bx-check mr-1'></i>Activeer</a>
+        <a *ngIf="chauffeur.isActief" class="bg-white transition-colors duration-200 ease-in-out text-red-400 font-heading  hover:bg-red-400 hover:text-white py-2 pr-4 pl-3 border border-red-400 hover:border-transparent rounded float-right m-3 cursor-pointer" (click)="activeChauffeur(false, chauffeur.id)"><i class='bx bx-x mr-1'></i>Deactiveer</a>
+        <a class="bg-white transition-colors duration-200 ease-in-out text-primary font-heading  hover:bg-primary hover:text-white py-2 pr-4 pl-3 border border-primary hover:border-transparent rounded float-right m-3 cursor-pointer" (click)="navigateToUpdate(chauffeur.id)"><i class='bx bxs-pencil mr-1'></i>Aanpassen</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

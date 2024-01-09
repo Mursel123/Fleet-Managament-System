@@ -1,0 +1,61 @@
+<div class="container mx-auto">
+    <div class="shadow-lg rounded-md overflow-hidden border border-gray-500">
+      <div class=" text-gray-700 p-6">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <h2 class="text-xl font-semibold mb-2">Aanvraag</h2>
+            <ul class="list-disc pl-4">
+              <li><strong>Datum Aanvraag:</strong> {{ aanvraag.datumAanvraag | date:'dd/MM/yyyy' }}</li>
+              <li><strong>Begin Periode:</strong> {{ aanvraag.beginPeriode | date:'dd/MM/yyyy' }}</li>
+              <li><strong>Eind Periode:</strong> {{ aanvraag.eindPeriode | date:'dd/MM/yyyy'}}</li>
+              <li><strong>Beschrijving:</strong> {{ aanvraag.beschrijving}}</li>
+              <li><strong>Aanvraag Type:</strong> {{ aanvraag.aanvraagType | enumPipe: aanvraagType }}</li>
+              <li><strong>Status Type:</strong> {{ aanvraag.statusType | enumPipe: statusType  }}</li>
+            </ul>
+          </div>
+          <div *ngIf="isAdmin && aanvraag.chauffeur">
+            <h2 class="text-xl font-semibold mb-2">Chauffeur</h2>
+            <ul class="list-disc pl-4">
+              <li><strong>Naam:</strong> {{ aanvraag.chauffeur.naam }}</li>
+              <li ><strong>Voornaam:</strong> {{ aanvraag.chauffeur.voornaam }}</li>
+              <li ><strong>Email:</strong> {{ aanvraag.chauffeur.email }}</li>
+            </ul>
+          </div>
+          <div *ngIf="aanvraag.voertuig">
+            <h2 class="text-xl font-semibold mb-2">Voertuig</h2>
+            <ul class="list-disc pl-4">
+              <li><strong>Chassisnummer:</strong> {{ aanvraag.voertuig.chassisnummer }}</li>
+              <li ><strong>Wagen Type:</strong> {{ aanvraag.voertuig.wagenType | enumPipe: wagenType }}</li>
+              <li ><strong>Brandstof Type:</strong> {{ aanvraag.voertuig.brandstofType | enumPipe: brandstofType }}</li>
+            </ul>
+          </div>
+          <div *ngIf="aanvraag.onderhoud">
+            <h2 class="text-xl font-semibold mb-2">Onderhoud</h2>
+            <ul class="list-disc pl-4">
+              <li><strong>Datum Uitvoering:</strong> {{ aanvraag.onderhoud.datumUitvoering | date:'dd/MM/yyyy' }}</li>
+              <li ><strong>Kostprijs:</strong> {{ aanvraag.onderhoud.kostprijs | currency:'EUR' }}</li>
+              <a class="bg-white transition-colors duration-200 ease-in-out text-black font-heading  hover:bg-black hover:text-white py-2 pr-4 pl-3 border border-black hover:border-transparent rounded float-right m-3 cursor-pointer" (click)="downloadBestandOnderhoud(aanvraag.onderhoud.document)"><i class='bx bxs-file-pdf mr-1 my-auto'></i>Download Bestand</a>
+            </ul>
+          </div>
+          <div *ngIf="aanvraag.herstelling">
+            <h2 class="text-xl font-semibold mb-2">Herstelling</h2>
+            <ul class="list-disc pl-4">
+              <li><strong>Datum Uitvoering:</strong> {{ aanvraag.herstelling.datumUitvoering | date:'dd/MM/yyyy' }}</li>
+              <li ><strong>Kostprijs:</strong> {{ aanvraag.herstelling.kostprijs | currency:'EUR' }}</li>
+              <a class="bg-white transition-colors duration-200 ease-in-out text-black font-heading  hover:bg-black hover:text-white py-2 pr-4 pl-3 border border-black hover:border-transparent rounded float-right m-3 cursor-pointer" (click)="downloadBestandHerstelling(aanvraag.herstelling.documenten, aanvraag.id)"><i class='bx bxs-file-pdf mr-1 my-auto'></i>Download Bestand</a>
+            </ul>
+            <div *ngFor="let document of aanvraag.herstelling.documenten">
+              <img class="h-auto max-w-lg rounded-lg m-5 w-10/12" *ngIf="document.bestandType === 1" [src]="'data:image/jpg;base64,' + document.fileData"/>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="isAdmin && aanvraag.statusType === 2">
+          <a class="bg-white transition-colors duration-200 ease-in-out text-green-400 font-heading  hover:bg-green-400 hover:text-white py-2 pr-4 pl-3 border border-green-400 hover:border-transparent rounded float-right m-3 cursor-pointer" (click)="aanvraagGoedkeuren(aanvraag.id)" [routerLink]="['/aanvragen-admin']" ><i class='bx bx-x mr-1 my-auto'></i>Goedkeuren</a>
+          <a class="bg-white transition-colors duration-200 ease-in-out text-red-400 font-heading  hover:bg-red-400 hover:text-white py-2 pr-4 pl-3 border border-red-400 hover:border-transparent rounded float-right m-3 cursor-pointer" (click)="aanvraagAfwijzen(aanvraag.id)" [routerLink]="['/aanvragen-admin']"><i class='bx bx-x mr-1 my-auto'></i>Afwijzen</a>
+        </div>
+        
+        
+      </div>
+    </div>
+  </div>
+  

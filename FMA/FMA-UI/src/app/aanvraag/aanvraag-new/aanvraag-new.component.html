@@ -1,0 +1,96 @@
+<div style="width: 50%;" class="container mx-auto ">
+  
+    <div class="shadow-lg rounded-md overflow-hidden bg-gray-50 border border-gray-500">
+      
+      <div class="bg-gray-50 text-gray-700 p-6">
+        
+        <form #f="ngForm"  class="w-full max-w-lg container mx-auto" (ngSubmit)="submitAanvraag(f)">
+          <p class="font-heading text-primary text-xl mb-5">Nieuwe Aanvraag</p>
+            <div class="flex flex-wrap -mx-3 mb-6">
+              <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >
+                  Begin Periode <span class="text-red-500">*</span>
+                </label>
+                <input class="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" 
+                  type="date" 
+                  [(ngModel)]="aanvraag.beginPeriode" 
+                  name="beginPeriode"
+                  #beginPeriode="ngModel" 
+                  required
+                  [ngClass]="{'invalid': beginPeriode.invalid && (beginPeriode.dirty || beginPeriode.touched || f.submitted)}">
+
+                <div *ngIf="beginPeriode.invalid && (beginPeriode.dirty || beginPeriode.touched || f.submitted)"
+                  class="alert">
+                  <div *ngIf="beginPeriode.errors?.['required']" class="text-red-600">
+                    Begin Periode is verplicht.
+                  </div>
+                </div>
+
+              </div>
+              <div class="w-full md:w-1/2 px-3">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-eindPeriode">
+                  Eind Periode <span class="text-red-500">*</span>
+                </label>
+                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="date" [(ngModel)]="aanvraag.eindPeriode" name="eindPeriode">
+              </div>
+            </div>
+            <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full md:w-2/2 px-3 mb-6 md:mb-0">
+                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-beschrijving" >
+                    Beschrijving <span class="text-red-500">*</span>
+                  </label>
+                  <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-beschrijving" type="text" [(ngModel)]="aanvraag.beschrijving" name="beschrijving">
+                </div>
+              </div>
+              <div class="flex flex-wrap -mx-3 mb-2">
+
+                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-voertuigId">
+                    Voertuig
+                  </label>
+          
+                  <div class="relative">
+                    <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-voertuigId" [(ngModel)]="aanvraag.voertuigId" name="voertuigId">
+                        <option [ngValue]="null">Geen Voertuig</option>
+                      <option *ngFor="let item of voertuigen" [ngValue]="item.id">{{ item.chassisnummer }}</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                      <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-aanvraagType">
+                        Aanvraag Type
+                    </label>
+            
+                    <div class="relative">
+                      <select class="block appearance-none w-full  border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-aanvraagType" 
+                      [(ngModel)]="aanvraag.aanvraagType" 
+                      name="aanvraagType"  
+                      required 
+                      #type="ngModel"
+                      [ngClass]="{'invalid': type.invalid && (type.dirty || type.touched || f.submitted)}">
+                        <option *ngFor="let item of aanvraagType | selectList" [ngValue]="item[0]">{{item[1]}}</option>
+                      </select>
+                      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                      </div>
+                    </div>
+                    <div *ngIf="type.invalid && (type.dirty || type.touched || f.submitted)"
+                        class="alert">
+                      <div *ngIf="type.errors?.['required']" class="text-red-600">
+                        Aanvraag type is verplicht.
+                      </div>
+
+                    </div>
+                  </div>
+              </div>
+
+            <button class="bg-white transition-colors duration-200 ease-in-out text-primary font-heading  hover:bg-primary hover:text-white py-2 pr-4 pl-3 my-5 border border-primary hover:border-transparent rounded float-left" type="submit">
+                Aanmaken
+              </button>
+          </form>
+      </div>
+    </div>
+</div>

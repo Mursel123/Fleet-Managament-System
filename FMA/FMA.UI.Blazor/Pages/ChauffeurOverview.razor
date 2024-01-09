@@ -1,0 +1,18 @@
+﻿@page "/chauffeur-overview"
+
+<h3>Chauffeur Overview</h3>
+
+<MudTable Items="@Chauffeurs" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+    <HeaderContent>
+        <MudTh>Naam</MudTh>
+        <MudTh>Voornaam</MudTh>
+        <MudTh>Email</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Naam">@context.Naam</MudTd>
+        <MudTd DataLabel="Voornaam">@context.Voornaam</MudTd>
+        <MudTd DataLabel="Email">@context.Email</MudTd>
+
+    </RowTemplate>
+</MudTable>
+
